@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping list example</title>
+    <style>
+     body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start; /* Change to center for vertical centering */
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 20px; /* Add some top margin for spacing */
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        li button {
+            font-size: 12px;
+            margin-left: 20px;
+            color: #000; /* Change to black */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>My shopping list</h1>
+
+    <div>
+        <label for="item">Enter a new item:</label>
+        <input type="text" name="item" id="item">
+        <button id="addItemButton">Add item</button>
+    </div>
+
+    <ul id="shoppingList">
+        <!-- List items will go here -->
+    </ul>
+
+    <script>
+    const ulElement = document.getElementById('shoppingList');
+    const inputElement = document.getElementById('item');
+    const buttonElement = document.getElementById('addItemButton');
+
+    const addItem = () => {
+        const newItem = inputElement.value;
+        if (newItem.trim() !== '') {
+            const li = document.createElement('li');
+            li.textContent = newItem;
+
+            // Create delete button
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Erase';
+            deleteButton.addEventListener('click', () => {
+                ulElement.removeChild(li);
+            });
+
+            li.appendChild(deleteButton);
+            ulElement.appendChild(li);
+            inputElement.value = '';  // Clear the input field
+            inputElement.focus();  // Set focus back to the input field
+        }
+    };
+
+    console.log(ulElement);  // Logs the <ul> element
+    console.log(inputElement);  // Logs the <input> element
+    console.log(buttonElement);  // Logs the <button> element
+
+    buttonElement.addEventListener('click', addItem);
+
+
+    inputElement.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+            addItem();
+        }
+    });
+
+    </script>
+
+</body>
+</html>
